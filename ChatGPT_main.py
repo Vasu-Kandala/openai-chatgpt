@@ -2,10 +2,11 @@ import os
 import json
 import openai
 import PyPDF2
-import uvicorn
 import aiofiles    
 import requests
 import tiktoken
+import uvicorn
+import gunicorn
 import numpy as np
 import pandas as pd
 from typing import List
@@ -32,6 +33,7 @@ async def health():
     ok["message"] = "API up and running"
     ok["status"] = 200
     return Response(json.dumps(ok), status=200, mimetype="POC on OpenAI's ChatGPT")
+
 
 # create new folder
 des_path = os.getcwd()+r"/input_data/"
@@ -190,12 +192,10 @@ async def create_upload_files(files: List[UploadFile] = File(...), question: str
     df['embeddings'] = df['embeddings'].apply(eval).apply(np.array)
     answer = answer_question(df,question, debug=False)    
     return {question:answer}
-    
+   
 @app.post("/question")
 async def QnA(question: str = Form(...)):
     df=pd.read_csv(os.getcwd()+r'/openAI_embeddings_500.csv', index_col=0)
     df['embeddings'] = df['embeddings'].apply(eval).apply(np.array)
     answer = answer_question(df,question, debug=False)
-    return {question: answer}     
-
-
+    return {question: answer}  
