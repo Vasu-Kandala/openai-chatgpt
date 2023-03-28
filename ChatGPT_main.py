@@ -41,7 +41,7 @@ DESTINATION = des_path.replace("\\", "/")
 max_tokens = 500
 shortened = []
 #Reading the Openai_api_key
-with open(os.getcwd()+'\OpenAI_API_key.txt', 'r') as file:
+with open(os.getcwd()+r'/OpenAI_API_key.txt', 'r') as file:
     openai.api_key = file.read()
 # create the function that extracts the text from pdfs
 def content_extract_from_Pdf(DESTINATION):
