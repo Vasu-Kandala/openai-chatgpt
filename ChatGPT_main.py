@@ -2,15 +2,14 @@ import os
 import json
 import openai
 import PyPDF2
+import uvicorn
 import aiofiles    
 import requests
 import tiktoken
-import gunicorn
 import numpy as np
 import pandas as pd
 from typing import List
 from flask import Response
-from gunicorn.app.wsgiapp import run
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi import FastAPI, File, UploadFile, Form
 from openai.embeddings_utils import distances_from_embeddings, cosine_similarity
